@@ -1,0 +1,6 @@
+package dnm;
+
+public enum Color {
+	SADDLEBROWN, DARKORCHID, RED, GREEN,
+	SKYBLUE, ORANGE, YELLOW, BLUE
+}
