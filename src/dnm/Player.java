@@ -8,6 +8,7 @@ public class Player {
 	private Property[] properties;
 	private int propertyCount;
 	private boolean isJailed;
+	private int turnsJailed;
 	private boolean isBankrupt;
 	
 	public Player(String _name) {
@@ -74,12 +75,25 @@ public class Player {
 		this.properties[last] = null;
 	}
 	
-	public void setJailed(Boolean _jailed) {
-		this.isJailed = _jailed;
+	public void jail() {
+		this.isJailed = true;
+	}
+	
+	public void unjail() {
+		this.isJailed = false;
+		this.turnsJailed = 0;
 	}
 	
 	public boolean getJailed() {
 		return this.isJailed;
+	}
+	
+	public void incTurnsJailed() {
+		this.turnsJailed++;
+	}
+	
+	public int getTurnsJailed() {
+		return this.turnsJailed;
 	}
 	
 	// Intentionally irreversible.
@@ -89,5 +103,13 @@ public class Player {
 	
 	public boolean getBankrupt() {
 		return this.isBankrupt;
+	}
+	
+	public int calculateWorth() {
+		int worth = cash;
+		for (int i = 0; i < propertyCount; i++) {
+			worth += properties[i].calculateValue();
+		}
+		return worth;
 	}
 }

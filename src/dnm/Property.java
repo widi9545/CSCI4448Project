@@ -5,13 +5,17 @@ public abstract class Property extends Tile {
 	private int cost;
 	private int mortgageValue;
 	private boolean isMortgaged;
-	private int[] rentTiers;
+	private int numInGroup;
+	protected int[] rentTiers;
 	
-	Property(TileType _tileType, String _name) {
+	Property(TileType _tileType, String _name, int _cost,
+			int _mortgageValue, int _numInGroup) {
 		super(_tileType, _name);
+		this.setCost(_cost);
+		this.setMortgageValue(_mortgageValue);
+		this.setNumInGroup(_numInGroup);
 		this.isMortgaged = false;
 		this.owner = null;
-		// TODO Load property information from database
 	}
 
 	public void setOwner(Player player) {
@@ -22,7 +26,7 @@ public abstract class Property extends Tile {
 		return this.owner;
 	}
 	
-	public void setCost(int _cost) {
+	private void setCost(int _cost) {
 		this.cost = _cost;
 	}
 	
@@ -30,7 +34,7 @@ public abstract class Property extends Tile {
 		return this.cost;
 	}
 	
-	public void setMortgageValue(int _mortgageValue) {
+	private void setMortgageValue(int _mortgageValue) {
 		this.mortgageValue = _mortgageValue;
 	}
 	
@@ -46,7 +50,7 @@ public abstract class Property extends Tile {
 		return this.isMortgaged;
 	}
 	
-	public void setRentTier(int tier, int rent) {
+	protected void setRentTier(int tier, int rent) {
 		this.rentTiers[tier] = rent;
 	}
 	
@@ -54,5 +58,15 @@ public abstract class Property extends Tile {
 		return this.rentTiers[tier];
 	}
 	
-	protected abstract int calculateRent(int tier);
+	private void setNumInGroup(int _numInGroup) {
+		this.numInGroup = _numInGroup;
+	}
+	
+	public int getNumInGroup() {
+		return this.numInGroup;
+	}
+
+	protected abstract int calculateRent();
+	
+	protected abstract int calculateValue();
 }
