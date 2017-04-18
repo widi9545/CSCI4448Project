@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+// May prove to be extraneous and can be consolidated
+// into System.
 public class TileManager {
 	private Tile goTile;
 	private Tile visitingTile;
@@ -56,17 +58,17 @@ public class TileManager {
 				case PROPERTY:
 					tmp = new BuildableProperty(currTileType, rs.getString("name"), rs.getInt("cost"),
 							rs.getInt("buildcost"), rs.getInt("mortgage"), Color.valueOf(rs.getString("color")),
-							rs.getInt("groupsize"), rs.getInt("tier_zero"), rs.getInt("tier_one"), rs.getInt("tier_two"),
-							rs.getInt("tier_three"), rs.getInt("tier_four"), rs.getInt("tier_five"));
+							rs.getInt("groupsize"), rs.getInt("tier0"), rs.getInt("tier1"), rs.getInt("tier2"),
+							rs.getInt("tier3"), rs.getInt("tier4"), rs.getInt("tier5"));
 					break;
 				case RAILROAD:
 					tmp = new Railroad(currTileType, rs.getString("name"), rs.getInt("cost"), rs.getInt("mortgage"),
-							rs.getInt("groupsize"), rs.getInt("tier_zero"), rs.getInt("tier_one"), rs.getInt("tier_two"),
-							rs.getInt("tier_three"));
+							rs.getInt("groupsize"), rs.getInt("tier0"), rs.getInt("tier1"), rs.getInt("tier2"),
+							rs.getInt("tier3"));
 					break;
 				case UTILITY:
 					tmp = new Utility(currTileType, rs.getString("name"), rs.getInt("cost"), rs.getInt("mortgage"),
-							rs.getInt("groupsize"), rs.getInt("tier_zero"), rs.getInt("tier_one"));
+							rs.getInt("groupsize"), rs.getInt("tier0"), rs.getInt("tier1"));
 					break;
 				default:
 					tmp = new Tile(currTileType, rs.getString("name"));

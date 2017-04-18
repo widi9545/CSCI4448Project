@@ -35,7 +35,7 @@ public class Player {
 		return this.cash;
 	}
 
-	// Generally only used to enact CC or Chance cards and 'Go to Jail'
+	// Generally only used to enact CC or Chance cards and 'Go to Jail'.
 	public void setLocation(Tile _tile) {
 		this.location = _tile;
 	}
@@ -44,8 +44,26 @@ public class Player {
 		return this.location;
 	}
 	
+	// Used for normal movement of player through dice roll.
+	public void move(int diceRoll) {
+		for (int i = 0; i < diceRoll; i++) {
+			incrementPlayerLocation();
+			if (location.getTileType() == TileType.GO) {
+				setCash(this.cash + 200);
+			}
+		}
+	}
+	
 	public void incrementPlayerLocation() {
 		this.location = this.location.nextTile;
+	}
+	
+	public Property[] getPropertyList() {
+		return this.properties;
+	}
+	
+	public int getPropertyCount() {
+		return this.propertyCount;
 	}
 	
 	public void addProperty(Property _property) {
@@ -58,6 +76,7 @@ public class Player {
 			if (this.properties[i] == _property) {
 				this.properties[i] = null;
 				pack(i);
+				this.propertyCount--;
 				return true;
 			}
 		}
@@ -105,6 +124,7 @@ public class Player {
 		return this.isBankrupt;
 	}
 	
+	// Generally only used for '20% of worth or $200' tax tile.
 	public int calculateWorth() {
 		int worth = cash;
 		for (int i = 0; i < propertyCount; i++) {
