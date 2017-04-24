@@ -1,0 +1,7 @@
+﻿We used the following resources over the course of the project. 
+
+We used the first resource here to get help in drawing the game board: 
+
+http://stackoverflow.com/questions/21970879/java-cant-draw-an-image-from-file
+
+
