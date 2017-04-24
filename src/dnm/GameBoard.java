@@ -16,7 +16,7 @@ public class GameBoard {
 	
 	private MonopolyPanel newPane;
 	
-	private void displayGUI(){
+	public void displayGUI(){
 		JFrame frame = new JFrame("GameBoard");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newPane = new MonopolyPanel();
@@ -50,17 +50,9 @@ public class GameBoard {
 		}
 	}
 	
-	public static void main(String[] args){
-		Runnable runnable = new Runnable(){
-			public void run(){
-				new GameBoard().displayGUI();
-			}
-			};
-			EventQueue.invokeLater(runnable);
-		
-	}
-	
+
 }
+
 		
 
 

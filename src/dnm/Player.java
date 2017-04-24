@@ -5,7 +5,7 @@ public class Player {
 	private String name;
 	private int cash;
 	private Tile location;
-	private Property[] properties;
+	private Property [] properties;
 	private int propertyCount;
 	private boolean isJailed;
 	private int turnsJailed;
@@ -13,9 +13,6 @@ public class Player {
 	
 	public Player(String _name) {
 		this.setName(_name);
-		for (int i = 0; i < MAX_PROPERTIES; i++) {
-			this.properties[i] = null;
-		}
 		this.propertyCount = 0;
 	}
 	
@@ -25,6 +22,17 @@ public class Player {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	//Removed the initialization of the properties for the player class - tossed us a null point error. Made a "checkPropertyCount" class in place instead
+	// I'll work on making sure that it initializes properly and put it back.
+	public boolean checkPropertyCount(){
+		if (getPropertyCount() < MAX_PROPERTIES){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public void setCash(int _cash) {
