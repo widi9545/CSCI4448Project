@@ -26,6 +26,19 @@ public class GameBoard {
 		frame.setVisible(true);
 	}
 	
+	public void updateGUI(Player location){
+		JFrame frame = new JFrame("GameBoard");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		newPane = new MonopolyPanel();
+		frame.setContentPane(newPane);
+		frame.pack();
+		frame.setLocationByPlatform(true);
+		frame.setVisible(true);
+		
+		
+		
+	}
+	
 	
 
 	private class MonopolyPanel extends JPanel {

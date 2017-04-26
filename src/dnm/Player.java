@@ -10,8 +10,10 @@ public class Player {
 	private boolean isJailed;
 	private int turnsJailed;
 	private boolean isBankrupt;
+	private String Color;
 	
-	public Player(String _name) {
+	public Player(String _name, String _color) {
+		this.setColor(_color);
 		this.setName(_name);
 		this.propertyCount = 0;
 	}
@@ -20,8 +22,16 @@ public class Player {
 		this.name = _name;
 	}
 	
+	public void setColor(String _color){
+		this.Color = _color;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public String getCOlor(){
+		return this.Color;
 	}
 	
 	//Removed the initialization of the properties for the player class - tossed us a null point error. Made a "checkPropertyCount" class in place instead

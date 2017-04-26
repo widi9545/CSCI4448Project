@@ -29,7 +29,9 @@ public class GameSystem {
 		for(int i = 0; i < NumberOfPlayers; i++){
 			System.out.println("Enter in a player name!\n");
 			String playerName = input.next();
-			Player player = new Player(playerName);	
+			System.out.println("Enter in a player color\n");
+			String playerColor = input.next();
+			Player player = new Player(playerName, playerColor);	
 			player.setCash(StartingCash);
 			ListOfPlayers.add(player);
 		}
