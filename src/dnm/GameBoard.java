@@ -11,17 +11,19 @@ import java.io.IOException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
 
 
 public class GameBoard extends JFrame {
 	
 	private MonopolyPanel newPane;
 	JFrame frame = new JFrame("Gameboard");
+	//permission bit for updating the gameboard!
 	public Boolean refresh = false;
 	
-	public void displayGUI(){
+	public void displayGUI(int NumberOfPlayers){
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newPane = new MonopolyPanel(40,40,40,40);
+		newPane = new MonopolyPanel(40,40,40,40,NumberOfPlayers);
 		frame.setContentPane(newPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
@@ -41,10 +43,26 @@ public class GameBoard extends JFrame {
 		public int y;
 		public int h;
 		public int z;
+		public int NumberOfPlayers;
+		public ArrayList<Line2D> PlayerPositions = new ArrayList<Line2D>();
 		public Color color = Color.blue;
 		
 		
 		@SuppressWarnings("unused")
+		//Initial formulation - we initialize the x and y coordinates of the players (have to mess with this) and
+		//then initialize a list that we will use to keep track of positions - still messing with this! very beta stages!
+		public MonopolyPanel(int _x, int _y, int _h, int _z, int NumberOfPlayers) {
+			setCoordinates(_x, _y, _h, _z);
+			setNumberOfPlayers(NumberOfPlayers);
+			InitializePositions();
+			try{ 
+			gameBoard = ImageIO.read(MonopolyPanel.class.getResource("board.jpg"));
+		} catch (IOException ioe){
+			ioe.printStackTrace();
+		}
+			
+		}
+		
 		public MonopolyPanel(int _x, int _y, int _h, int _z) {
 			setCoordinates(_x, _y, _h, _z);
 			try{ 
@@ -52,12 +70,24 @@ public class GameBoard extends JFrame {
 		} catch (IOException ioe){
 			ioe.printStackTrace();
 		}
+			
 		}
+		
+		
 		public void setCoordinates(int _x, int _y, int _h, int _z){
 			this.x = _x;
 			this.y = _y;
 			this.h = _h;
 			this.z = _z;
+		}
+		public void setNumberOfPlayers(int _n){
+			this.NumberOfPlayers = _n;
+		}
+		public void InitializePositions(){
+			for(int i = 0; i < NumberOfPlayers; i ++){
+				Line2D line = new Line2D.Double(x,y,h,z);
+				PlayerPositions.add(line);
+			}
 		}
 		
 		
@@ -65,7 +95,6 @@ public class GameBoard extends JFrame {
 		public Dimension getPreferredSize(){
 			return gameBoard == null ? new Dimension(100, 100): new Dimension(800, 818);
 		}
-		
 
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
