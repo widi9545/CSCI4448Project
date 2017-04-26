@@ -12,14 +12,14 @@ public class GameSystem {
 	public static GameBoard gameBoard = new GameBoard();
 	//Adding in a Player List for us to use - this will make it way easier for us to iterate down and perform operations on the players
 	public static ArrayList<Player> ListOfPlayers = new ArrayList<Player>();
-	
+	//set our cash 
 	public static int SetCash(){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the starting amount of cash\n");
 		StartingCash = input.nextInt();
 		return StartingCash;
 	}
-	
+	//start the game! these are the default settings, the GameSystem class is going to become massive as move along
 	public static void BeginGame(){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Monopoly!\n");
@@ -37,7 +37,7 @@ public class GameSystem {
 			ListOfPlayers.add(player);
 		}
 		
-			gameBoard.displayGUI();
+			gameBoard.displayGUI(NumberOfPlayers);
 			
 	}
 
