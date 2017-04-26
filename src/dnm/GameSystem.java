@@ -9,6 +9,7 @@ public class GameSystem {
 	
 	public static int NumberOfPlayers;
 	public static int StartingCash;
+	public static GameBoard gameBoard = new GameBoard();
 	//Adding in a Player List for us to use - this will make it way easier for us to iterate down and perform operations on the players
 	public static ArrayList<Player> ListOfPlayers = new ArrayList<Player>();
 	
@@ -35,17 +36,23 @@ public class GameSystem {
 			player.setCash(StartingCash);
 			ListOfPlayers.add(player);
 		}
-		// an example of how retrieving through the ArrayList works. ListOfPlayers.get(0).setCash(5000);
-		Runnable runnable = new Runnable(){
-			public void run(){
-				new GameBoard().displayGUI();
-			}
-			};
-			EventQueue.invokeLater(runnable);
+		
+			gameBoard.displayGUI();
+			
+	}
+
+	public static void updateBoard(){
+		gameBoard.updateGUI(10,40,40,40);
+		return;
 	}
 	
+	
+	
+	
 	public static void main(String[] args){
-		GameSystem.BeginGame();
+		GameSystem MonopolyGame = new GameSystem();
+		MonopolyGame.BeginGame();
+		MonopolyGame.updateBoard();
 
 	}
 		

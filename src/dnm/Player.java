@@ -30,7 +30,7 @@ public class Player {
 		return this.name;
 	}
 	
-	public String getCOlor(){
+	public String getColor(){
 		return this.Color;
 	}
 	
