@@ -41,8 +41,9 @@ public class GameSystem {
 			
 	}
 
+	//Here is where we will update the board according to the player position
 	public static void updateBoard(){
-		gameBoard.updateGUI(10,40,40,40);
+		gameBoard.updateGUI(170,650);
 		return;
 	}
 	

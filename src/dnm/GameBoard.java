@@ -23,16 +23,16 @@ public class GameBoard extends JFrame {
 	
 	public void displayGUI(int NumberOfPlayers){
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newPane = new MonopolyPanel(40,40,40,40,NumberOfPlayers);
+		newPane = new MonopolyPanel(40,40,NumberOfPlayers);
 		frame.setContentPane(newPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);
 	}
 	
-	public void updateGUI(int x, int y,int h, int z){
+	public void updateGUI(int x, int y){
 		refresh = true;
-		MonopolyPanel updatePane = new MonopolyPanel(x,y,h,z);
+		MonopolyPanel updatePane = new MonopolyPanel(x,y);
 		frame.add(updatePane);
 	}
 
@@ -41,18 +41,16 @@ public class GameBoard extends JFrame {
 		public Graphics2D g2;
 		public int x;
 		public int y;
-		public int h;
-		public int z;
 		public int NumberOfPlayers;
-		public ArrayList<Line2D> PlayerPositions = new ArrayList<Line2D>();
+		public ArrayList<Rectangle2D> PlayerPositions = new ArrayList<Rectangle2D>();
 		public Color color = Color.blue;
 		
 		
 		@SuppressWarnings("unused")
 		//Initial formulation - we initialize the x and y coordinates of the players (have to mess with this) and
 		//then initialize a list that we will use to keep track of positions - still messing with this! very beta stages!
-		public MonopolyPanel(int _x, int _y, int _h, int _z, int NumberOfPlayers) {
-			setCoordinates(_x, _y, _h, _z);
+		public MonopolyPanel(int _x, int _y, int NumberOfPlayers) {
+			setCoordinates(_x, _y);
 			setNumberOfPlayers(NumberOfPlayers);
 			InitializePositions();
 			try{ 
@@ -63,8 +61,8 @@ public class GameBoard extends JFrame {
 			
 		}
 		
-		public MonopolyPanel(int _x, int _y, int _h, int _z) {
-			setCoordinates(_x, _y, _h, _z);
+		public MonopolyPanel(int _x, int _y) {
+			setCoordinates(_x, _y);
 			try{ 
 			gameBoard = ImageIO.read(MonopolyPanel.class.getResource("board.jpg"));
 		} catch (IOException ioe){
@@ -74,19 +72,17 @@ public class GameBoard extends JFrame {
 		}
 		
 		
-		public void setCoordinates(int _x, int _y, int _h, int _z){
+		public void setCoordinates(int _x, int _y){
 			this.x = _x;
 			this.y = _y;
-			this.h = _h;
-			this.z = _z;
 		}
 		public void setNumberOfPlayers(int _n){
 			this.NumberOfPlayers = _n;
 		}
 		public void InitializePositions(){
 			for(int i = 0; i < NumberOfPlayers; i ++){
-				Line2D line = new Line2D.Double(x,y,h,z);
-				PlayerPositions.add(line);
+				Rectangle2D position = new Rectangle2D.Double(x,y, 5, 5);
+				PlayerPositions.add(position);
 			}
 		}
 		
@@ -101,10 +97,10 @@ public class GameBoard extends JFrame {
 			g.drawImage(gameBoard, 0, 0, this);
 			if(refresh == true){
 				g2 = (Graphics2D)g;
-				Line2D line = new Line2D.Double(x,y,h,z);
+				Rectangle2D position = new Rectangle2D.Double(x,y,5,5);
 				g2.setColor(color);
-				g2.setStroke(new BasicStroke(10));
-				g2.draw(line);
+				g2.setStroke(new BasicStroke(20));
+				g2.draw(position);
 			}
 			
 		}
