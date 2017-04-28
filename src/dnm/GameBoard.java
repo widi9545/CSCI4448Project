@@ -19,11 +19,11 @@ public class GameBoard extends JFrame {
 	private MonopolyPanel newPane;
 	JFrame frame = new JFrame("Gameboard");
 	//permission bit for updating the gameboard!
-	public Boolean refresh = false;
+	public static Boolean refresh = false;
 	
 	public void displayGUI(int NumberOfPlayers){
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newPane = new MonopolyPanel(40,40,NumberOfPlayers);
+		newPane = new MonopolyPanel(675,650,NumberOfPlayers);
 		frame.setContentPane(newPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
@@ -81,11 +81,10 @@ public class GameBoard extends JFrame {
 		}
 		public void InitializePositions(){
 			for(int i = 0; i < NumberOfPlayers; i ++){
-				Rectangle2D position = new Rectangle2D.Double(x,y, 5, 5);
+				Rectangle2D position = new Rectangle2D.Double(675,650, 5, 5);
 				PlayerPositions.add(position);
 			}
 		}
-		
 		
 		@Override
 		public Dimension getPreferredSize(){
@@ -93,11 +92,19 @@ public class GameBoard extends JFrame {
 		}
 
 		public void paintComponent(Graphics g){
+			g2 = (Graphics2D)g;
+			Rectangle2D position;
+			
 			super.paintComponent(g);
 			g.drawImage(gameBoard, 0, 0, this);
-			if(refresh == true){
-				g2 = (Graphics2D)g;
-				Rectangle2D position = new Rectangle2D.Double(x,y,5,5);
+			if(GameBoard.refresh == false){
+				position = new Rectangle2D.Double(40, 40, 5, 5);
+				g2.setColor(color);
+				g2.setStroke(new BasicStroke(20));
+				g2.draw(position);
+			}
+			if(GameBoard.refresh == true){
+				position = new Rectangle2D.Double(x,y,5,5);
 				g2.setColor(color);
 				g2.setStroke(new BasicStroke(20));
 				g2.draw(position);

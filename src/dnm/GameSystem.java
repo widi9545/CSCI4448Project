@@ -43,7 +43,8 @@ public class GameSystem {
 
 	//Here is where we will update the board according to the player position
 	public static void updateBoard(){
-		gameBoard.updateGUI(170,650);
+		//175 - 225
+		gameBoard.updateGUI(175,650);
 		return;
 	}
 	
@@ -51,8 +52,12 @@ public class GameSystem {
 	
 	
 	public static void main(String[] args){
+		boolean StartOfGame = false;
 		GameSystem MonopolyGame = new GameSystem();
-		MonopolyGame.BeginGame();
+		if(StartOfGame == false){
+			MonopolyGame.BeginGame();
+			StartOfGame = true;
+		}
 		MonopolyGame.updateBoard();
 
 	}
