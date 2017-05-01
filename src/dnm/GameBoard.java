@@ -22,7 +22,7 @@ public class GameBoard extends JFrame {
 	
 	public void displayGUI(int NumberOfPlayers){
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newPane = new MonopolyPanel(500,500,NumberOfPlayers);
+		newPane = new MonopolyPanel(675,625,NumberOfPlayers);
 		frame.setContentPane(newPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
@@ -95,7 +95,7 @@ public class GameBoard extends JFrame {
 			g.drawImage(gameBoard, 0, 0, this);
 			
 			if(refresh == false){
-				position = new Rectangle2D.Double(675, 650, 5, 5);
+				position = new Rectangle2D.Double(650, 650, 5, 5);
 				g2.setColor(color);
 				g2.setStroke(new BasicStroke(20));
 				g2.draw(position);

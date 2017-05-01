@@ -62,6 +62,7 @@ public class Player {
 		this.yCoord = _yCoord;
 	}
 	
+	
 	public String getName() {
 		return this.name;
 	}
