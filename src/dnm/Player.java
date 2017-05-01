@@ -1,4 +1,5 @@
 package dnm;
+import java.awt.*;
 
 public class Player {
 	private final int MAX_PROPERTIES = 30;
@@ -10,28 +11,68 @@ public class Player {
 	private boolean isJailed;
 	private int turnsJailed;
 	private boolean isBankrupt;
-	private String Color;
+	private Color color;
+	private int xCoord;
+	private int yCoord;
 	
 	public Player(String _name, String _color) {
-		this.setColor(_color);
+		if(_color == "blue"){
+			Color playerColor = Color.blue;
+			this.setColor(playerColor);
+		}
+		if(_color == "green"){
+			Color playerColor = Color.green;
+			this.setColor(playerColor);
+		}
+		if(_color == "red"){
+			Color playerColor = Color.red;
+			this.setColor(playerColor);
+		}
+		if(_color == "pink"){
+			Color playerColor = Color.pink;
+			this.setColor(playerColor);
+		}
+		if(_color == "cyan"){
+			Color playerColor = Color.cyan;
+			this.setColor(playerColor);
+		}
 		this.setName(_name);
 		this.propertyCount = 0;
+		this.location = new Tile(TileType.VISITING, "Start");
 	}
 	
 	public void setName(String _name) {
 		this.name = _name;
 	}
 	
-	public void setColor(String _color){
-		this.Color = _color;
+	public void setColor(Color _color){
+		this.color = _color;
+	}
+	
+	public Color getColor(){
+		return color;
+	}
+	
+	
+	//This will be used to graphically set the players positions on the game board - we will use move() to keep track of players locations more accurately,
+	//this is for graphical representation.
+	public void setPlayerPosition(int _xCoord, int _yCoord){
+		
+		this.xCoord = _xCoord;
+		this.yCoord = _yCoord;
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public String getColor(){
-		return this.Color;
+	
+	public int getPlayerXCoord(){
+		return this.xCoord;	
+	}
+	
+	public int getPlayerYCoord(){
+		return this.yCoord;
 	}
 	
 	//Removed the initialization of the properties for the player class - tossed us a null point error. Made a "checkPropertyCount" class in place instead
@@ -77,6 +118,9 @@ public class Player {
 	}
 	
 	public Property[] getPropertyList() {
+		if(getPropertyCount() == 0){
+			System.out.println("You have no properties");
+		}
 		return this.properties;
 	}
 	
