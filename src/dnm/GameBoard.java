@@ -13,6 +13,11 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 
+//The base of this code was cited from two StackOverflow forum questions, as neither of us had real experience dealing
+//with graphics in Java before - the url for the forum post is here, and is also in a file called
+//ResourcesUsedInProject.txt on the GitHub repo
+// http://stackoverflow.com/questions/21970879/java-cant-draw-an-image-from-file
+// http://stackoverflow.com/questions/17865465/how-do-i-draw-an-image-to-a-jpanel-or-jframe
 
 public class GameBoard extends JFrame {
 	
