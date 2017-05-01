@@ -18,12 +18,11 @@ public class GameBoard extends JFrame {
 	
 	private MonopolyPanel newPane;
 	JFrame frame = new JFrame("Gameboard");
-	//permission bit for updating the gameboard!
-	public static Boolean refresh = false;
+	
 	
 	public void displayGUI(int NumberOfPlayers){
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		newPane = new MonopolyPanel(675,650,NumberOfPlayers);
+		newPane = new MonopolyPanel(500,500,NumberOfPlayers);
 		frame.setContentPane(newPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
@@ -31,9 +30,10 @@ public class GameBoard extends JFrame {
 	}
 	
 	public void updateGUI(int x, int y){
-		refresh = true;
 		MonopolyPanel updatePane = new MonopolyPanel(x,y);
 		frame.add(updatePane);
+		frame.revalidate();
+		frame.repaint();
 	}
 
 	private class MonopolyPanel extends JPanel {
@@ -42,6 +42,7 @@ public class GameBoard extends JFrame {
 		public int x;
 		public int y;
 		public int NumberOfPlayers;
+		public boolean refresh = false;
 		public ArrayList<Rectangle2D> PlayerPositions = new ArrayList<Rectangle2D>();
 		public Color color = Color.blue;
 		
@@ -52,7 +53,6 @@ public class GameBoard extends JFrame {
 		public MonopolyPanel(int _x, int _y, int NumberOfPlayers) {
 			setCoordinates(_x, _y);
 			setNumberOfPlayers(NumberOfPlayers);
-			InitializePositions();
 			try{ 
 			gameBoard = ImageIO.read(MonopolyPanel.class.getResource("board.jpg"));
 		} catch (IOException ioe){
@@ -61,8 +61,10 @@ public class GameBoard extends JFrame {
 			
 		}
 		
+		
 		public MonopolyPanel(int _x, int _y) {
 			setCoordinates(_x, _y);
+			this.refresh = true;
 			try{ 
 			gameBoard = ImageIO.read(MonopolyPanel.class.getResource("board.jpg"));
 		} catch (IOException ioe){
@@ -79,12 +81,6 @@ public class GameBoard extends JFrame {
 		public void setNumberOfPlayers(int _n){
 			this.NumberOfPlayers = _n;
 		}
-		public void InitializePositions(){
-			for(int i = 0; i < NumberOfPlayers; i ++){
-				Rectangle2D position = new Rectangle2D.Double(675,650, 5, 5);
-				PlayerPositions.add(position);
-			}
-		}
 		
 		@Override
 		public Dimension getPreferredSize(){
@@ -97,14 +93,15 @@ public class GameBoard extends JFrame {
 			
 			super.paintComponent(g);
 			g.drawImage(gameBoard, 0, 0, this);
-			if(GameBoard.refresh == false){
-				position = new Rectangle2D.Double(40, 40, 5, 5);
+			
+			if(refresh == false){
+				position = new Rectangle2D.Double(675, 650, 5, 5);
 				g2.setColor(color);
 				g2.setStroke(new BasicStroke(20));
 				g2.draw(position);
 			}
-			if(GameBoard.refresh == true){
-				position = new Rectangle2D.Double(x,y,5,5);
+			if(refresh == true){
+				position = new Rectangle2D.Double(x, y, 5, 5);
 				g2.setColor(color);
 				g2.setStroke(new BasicStroke(20));
 				g2.draw(position);
