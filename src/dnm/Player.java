@@ -15,27 +15,8 @@ public class Player {
 	private int xCoord;
 	private int yCoord;
 	
-	public Player(String _name, String _color) {
-		if(_color == "blue"){
-			Color playerColor = Color.blue;
-			this.setColor(playerColor);
-		}
-		if(_color == "green"){
-			Color playerColor = Color.green;
-			this.setColor(playerColor);
-		}
-		if(_color == "red"){
-			Color playerColor = Color.red;
-			this.setColor(playerColor);
-		}
-		if(_color == "pink"){
-			Color playerColor = Color.pink;
-			this.setColor(playerColor);
-		}
-		if(_color == "cyan"){
-			Color playerColor = Color.cyan;
-			this.setColor(playerColor);
-		}
+	public Player(String _name) {
+
 		this.setName(_name);
 		this.propertyCount = 0;
 		this.location = new Tile(TileType.VISITING, "Start");
@@ -56,7 +37,7 @@ public class Player {
 	
 	//This will be used to graphically set the players positions on the game board - we will use move() to keep track of players locations more accurately,
 	//this is for graphical representation.
-	public void setPlayerPosition(int _xCoord, int _yCoord){
+	public void setPlayerCoordinates(int _xCoord, int _yCoord){
 		
 		this.xCoord = _xCoord;
 		this.yCoord = _yCoord;

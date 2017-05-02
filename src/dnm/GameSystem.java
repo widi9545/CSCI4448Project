@@ -15,6 +15,8 @@ public class GameSystem {
 	//Adding in a Player List for us to use - this will make it way easier for us to iterate down and perform operations on the players
 	public static ArrayList<Player> ListOfPlayers = new ArrayList<Player>();
 	public static ArrayList<TradeRequest> TradeQueue = new ArrayList<TradeRequest>();
+
+	
 	
 	//set our cash 
 	public static int SetCash(){
@@ -25,7 +27,7 @@ public class GameSystem {
 	}
 	
 	public static int rollDice(){
-		int random = (int)(Math.random() * 12 + 1);
+		int random = (int)(Math.random() * 10 + 1);
 		return random;	
 	}
 	
@@ -40,17 +42,16 @@ public class GameSystem {
 		for(int i = 0; i < NumberOfPlayers; i++){
 			System.out.println("Enter in a player name!\n");
 			String playerName = input.next();
-			System.out.println("Enter in a player color\n");
-			String playerColor = input.next();
-			Player player = new Player(playerName, playerColor);	
+			Player player = new Player(playerName);	
 			player.setCash(StartingCash);
-			player.setPlayerPosition(650, 650);
+			player.setPlayerCoordinates(650, 650);
 			ListOfPlayers.add(player);
 		}
 			gameBoard.displayGUI(NumberOfPlayers);
 			
 	}
 	//an example of how retrieving through the ArrayList works. ListOfPlayers.get(0).setCash(5000);
+	
 	//Here is where we will graphically update the board according to the player position
 	//we use the move() method in the Player class to actually increment the tile counter however
 	public static void updateBoard(int currentPlayer, int DiceRoll){
@@ -58,25 +59,46 @@ public class GameSystem {
 		
 		int xCoord = ListOfPlayers.get(currentPlayer).getPlayerXCoord();
 		int yCoord = ListOfPlayers.get(currentPlayer).getPlayerYCoord();
+
 		
-		int newYCoord = 0;
-		int newXCoord = 0;
 		if(yCoord >= 650){
-			newXCoord = xCoord - (DiceRoll*50);
-			newYCoord = yCoord;
+			xCoord = xCoord - (DiceRoll*45);
+			if(xCoord < 125){
+				xCoord = 125;
+			}
+		}
+		if(xCoord == 125){
+			yCoord = yCoord - (DiceRoll*45);
+			if(yCoord < 125){
+				yCoord = 125;
+			}
 			
 		}
-		if(xCoord <= 125){
-			newYCoord = yCoord - (DiceRoll*50);
-			newXCoord = xCoord;
+		if(yCoord == 125){
+			xCoord = xCoord + (DiceRoll*45);
+			if(xCoord >= 650){
+				xCoord = 650;
+			}
 		}
-		gameBoard.updateGUI(newXCoord, newYCoord);
+		if(xCoord >= 650){
+			yCoord = yCoord + (DiceRoll*45);
+			if(yCoord >= 650){
+				yCoord = 650;
+			}
+		}
+
+		System.out.println(xCoord);
+		System.out.println(yCoord);
+		
+
+		ListOfPlayers.get(currentPlayer).setPlayerCoordinates(xCoord, yCoord);
+		
+		gameBoard.updateGUI(xCoord, yCoord);
 	}
 	
 	public void GameManger(Boolean GameInProgress, int CurrentPlayer, int DiceRoll){
 		updateBoard(CurrentPlayer, DiceRoll);
 		GameExecution(GameInProgress, CurrentPlayer);
-		updateBoard(CurrentPlayer, DiceRoll);
 		return;
 		
 	}
@@ -85,23 +107,32 @@ public class GameSystem {
 		int diceRoll;
 		Scanner input = new Scanner(System.in);
 		while(GameInProgress == true){
+			
 			System.out.println("What would you like to do now?\n");
 			System.out.println("Would you like to (1) see your properties?\n");
 			System.out.println("Would you like to (2) purchase this property if available?\n");
 			System.out.println("Would you like to (3) trade a property?\n");
 			System.out.println("Would you like to (4) end your turn?\n");
 			int PlayerChoice = input.nextInt();
-				switch(PlayerChoice){
+				switch(PlayerChoice) {
+				
 				case 1: 
 					ListOfPlayers.get(CurrentPlayer).getPropertyList();
+				
 				case 2:
 					break;
+				
 				case 3:
+					if(ListOfPlayers.get(CurrentPlayer).getPropertyCount() == 0){
+						System.out.println("You have no properties to trade");
+					}
 					break;
+				
 				case 4:
 					GameInProgress = false;
 					break;
-				}		
+				}	
+				
 			
 		}
 		return; 		

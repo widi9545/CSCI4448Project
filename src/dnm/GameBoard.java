@@ -35,8 +35,10 @@ public class GameBoard extends JFrame {
 	}
 	
 	public void updateGUI(int x, int y){
+		getContentPane().removeAll();
 		MonopolyPanel updatePane = new MonopolyPanel(x,y);
-		frame.add(updatePane);
+		frame.setContentPane(updatePane);
+		frame.pack();
 		frame.revalidate();
 		frame.repaint();
 	}
