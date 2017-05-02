@@ -19,7 +19,7 @@ public class Player {
 
 		this.setName(_name);
 		this.propertyCount = 0;
-		this.location = new Tile(TileType.VISITING, "Start");
+		this.location = new Tile(TileType.GO, "Go");
 	}
 	
 	public void setName(String _name) {
